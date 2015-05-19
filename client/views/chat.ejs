@@ -1,0 +1,29 @@
+<!doctype html>
+<html ng-app="rtc">
+  <head>
+    <title>ChatterBox - Chat with your friends</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: #333; border: none; padding: 10px; color: #fff; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/rtc.js"></script>
+  </head>
+  <body ng-controller="chatCtrl" ng-init="userData = {fullName : '<%=user.fullName%>', displayPicture : '<%=user.displayPicture%>'};">
+    <h1 style="padding:5px;"><img src="<%= user.displayPicture %>"/> Welcome, <%= user.fullName %></h1>
+    <ul id="messages" ng-repeat="msg in msgs">
+      <li><img ng-src='{{msg.displayPicture}}' height="32px" width="32px"/><b> {{msg.fullName}}:</b> {{msg.message}}</li>
+    </ul>
+    <form>
+      <input id="m" autocomplete="off" ng-model="message" /><button ng-click="send()">Send</button>
+    </form>
+  </body>
+</html>
